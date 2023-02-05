@@ -1,0 +1,30 @@
+Пт 03 фев 2023 23:53:18 +07
+1
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data. 64 bytes from 8.8.8.8: icmp_seq=1 ttl=109 time=87.4 ms 64 bytes from 8.8.8.8: icmp_seq=2 ttl=109 time=148 ms 64 bytes from 8.8.8.8: icmp_seq=3 ttl=109 time=80.5 ms 64 bytes from 8.8.8.8: icmp_seq=4 ttl=109 time=133 ms 64 bytes from 8.8.8.8: icmp_seq=5 ttl=109 time=46.5 ms --- 8.8.8.8 ping statistics --- 5 packets transmitted, 5 received, 0% packet loss, time 4005ms rtt min/avg/max/mdev = 46.530/99.190/148.334/36.950 ms
+PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data. --- 192.168.0.1 ping statistics --- 5 packets transmitted, 0 received, 100% packet loss, time 4100ms
+PING 173.194.222.113 (173.194.222.113) 56(84) bytes of data. 64 bytes from 173.194.222.113: icmp_seq=1 ttl=108 time=48.4 ms 64 bytes from 173.194.222.113: icmp_seq=2 ttl=108 time=51.7 ms 64 bytes from 173.194.222.113: icmp_seq=3 ttl=108 time=48.6 ms 64 bytes from 173.194.222.113: icmp_seq=4 ttl=108 time=48.2 ms 64 bytes from 173.194.222.113: icmp_seq=5 ttl=108 time=666 ms --- 173.194.222.113 ping statistics --- 5 packets transmitted, 5 received, 0% packet loss, time 4006ms rtt min/avg/max/mdev = 48.244/172.517/665.671/246.580 ms
+PING 87.250.250.242 (87.250.250.242) 56(84) bytes of data. 64 bytes from 87.250.250.242: icmp_seq=1 ttl=247 time=65.5 ms 64 bytes from 87.250.250.242: icmp_seq=2 ttl=247 time=43.5 ms 64 bytes from 87.250.250.242: icmp_seq=3 ttl=247 time=42.3 ms 64 bytes from 87.250.250.242: icmp_seq=4 ttl=247 time=42.4 ms 64 bytes from 87.250.250.242: icmp_seq=5 ttl=247 time=76.8 ms --- 87.250.250.242 ping statistics --- 5 packets transmitted, 5 received, 0% packet loss, time 4005ms rtt min/avg/max/mdev = 42.254/54.076/76.794/14.384 ms
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
