@@ -25,9 +25,9 @@ c = a + b
 ### **Вопросы:**
 ```
 Вопрос	                                            Ответ
-Какое значение будет присвоено переменной c?	    ???
-Как получить для переменной c значение 12?	    ???
-Как получить для переменной c значение 3?	    ???
+Какое значение будет присвоено переменной c?	    TypeError: unsupported operand type(s) for +: 'int' and 'str'
+Как получить для переменной c значение 12?	    c = str(a) + b
+Как получить для переменной c значение 3?	    c = a + int(b)
 ```
 ### **Задание 2**
 Мы устроились на работу в компанию, где раньше уже был DevOps Engineer. Он написал скрипт, позволяющий узнать, какие файлы модифицированы в репозитории, относительно локальных изменений. Этим скриптом недовольно начальство, потому что в его выводе есть не все изменённые файлы, а также непонятен полный путь к директории, где они находятся.
@@ -48,16 +48,53 @@ for result in result_os.split('\n'):
         break
 ```        
 ### **Ваш скрипт:**
-    ???
+```
+import os
+from pprint import pprint
+
+bash_command = ["cd /home/nevermind/PycharmProjects/pythonProject/devops-netology", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('изменено:') !=-1:
+        prepare_result = result.replace('\tизменено:   ', '')
+        abs_path = os.path.abspath(prepare_result)
+        pprint(abs_path)
+        break
+```
 ### **Вывод скрипта при запуске при тестировании:**
-    ???
+```
+('/home/nevermind/PycharmProjects/pythonProject/devops-netology/DevOps  and '
+ 'system administration/3 Scripting and markup languages: Python, Bash, YAML, '
+ 'JSON/2 Python/   DevOps  and system administration/3 Scripting and markup '
+ 'languages: Python, Bash, YAML, JSON/2 Python/README.md')
+```
 ### **Задание 3**
 Доработать скрипт выше так, чтобы он не только мог проверять локальный репозиторий в текущей директории, но и умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 
 ### **Ваш скрипт:**
-    ???
+```
+import os
+from pprint import pprint
+
+input_path = input('Введите путь до локальной директории \n')
+bash_command = ["cd " + input_path, 'git status']
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('изменено:') !=-1:
+        prepare_result = result.replace('\tизменено:   ', '')
+        abs_path = os.path.abspath(prepare_result)
+        pprint(abs_path)
+        break
+```
 ### **Вывод скрипта при запуске при тестировании:**
-    ???
+```
+('/home/nevermind/PycharmProjects/pythonProject/devops-netology/DevOps  and '
+ 'system administration/3 Scripting and markup languages: Python, Bash, YAML, '
+ 'JSON/2 Python/   DevOps  and system administration/3 Scripting and markup '
+ 'languages: Python, Bash, YAML, JSON/2 Python/README.md')
+```
 ### **Задание 4**
 Наша команда разрабатывает несколько веб-сервисов, доступных по http. Мы точно знаем, что на их стенде нет никакой балансировки, кластеризации, за DNS прячется конкретный IP сервера, где установлен сервис.
 
@@ -71,9 +108,72 @@ for result in result_os.split('\n'):
 Также, должна быть реализована возможность проверки текущего IP сервиса c его IP из предыдущей проверки. Если проверка будет провалена - оповестить об этом в стандартный вывод сообщением: [ERROR] <URL сервиса> IP mismatch: <старый IP> <Новый IP>. Будем считать, что наша разработка реализовала сервисы: drive.google.com, mail.google.com, google.com.
 
 ### **Ваш скрипт:**
-    ???
+Вариант 1
+```
+#!/usr/bin/env python3
+
+import os
+from pprint import pprint
+import socket
+
+url = {'drive.google.com' : '142.251.31.194', 'mail.google.com': '142.251.143.37', 'google.com': '142.250.180.110'}
+
+class Ping_url():
+    def __init__(self, url):
+        self.url = url
+    new_url = {}
+    for k, v in url.items():
+        apdt_url = socket.gethostbyname(k)
+        pprint(f'URL сервиса {k}, IP сервиса {apdt_url}')
+    for key, value in url.items():
+        socket_url = socket.gethostbyname(key)
+        if value == socket_url:
+            pprint(f'URL сервиса {key} его ip {value}')
+        else:
+            pprint(f'[ERROR] URL сервиса {key} IP mismatch: старый IP - {value} Новый IP - {socket_url}')
+            url[key] = socket_url
+
+Ping_url(url)
+```
+Вариант 2
+```
+#!/usr/bin/env python3
+
+#import os
+import socket
+#import sys
+#import subprocess
+
+hostnames = {'drive.google.com': '64.233.164.194', 'mail.google.com': '64.233.165.19', 'google.com': '64.233.165.113'}
+
+for hostname, value in hostnames.items():
+#    print(hostname)
+    try:
+        ip = socket.gethostbyname(hostname)
+        #print(f'The {hostname} IP Address is {ip}')
+        if value == ip:
+            print(f'{hostname}: IP {value} в словаре и последний полученный {ip} СОВПАДАЮТ, все ок не трогаем')
+        else:
+            print(f'{hostname}:  IP {value} в словаре и последний полученный {ip} НЕ_СОВПАДАЮТ, надо апдейтить')
+            hostnames[hostname] = ip
+    except socket.gaierror as e:
+        hostnames[hostname] = None
+        print(f'[ERROR] {hostname} >> Не резолвится {e}')
+print(f'DICT update >>> {hostnames}')
+
+```
 ### **Вывод скрипта при запуске при тестировании:**
-    ???
+```
+'URL сервиса drive.google.com, IP сервиса 142.251.31.194'
+'URL сервиса mail.google.com, IP сервиса 142.251.143.37'
+'URL сервиса google.com, IP сервиса 142.250.180.110'
+'URL сервиса drive.google.com его ip 142.251.31.194'
+'URL сервиса mail.google.com его ip 142.251.143.37'
+'URL сервиса google.com его ip 142.250.180.110'
+
+Process finished with exit code 0
+
+```
 ### **Дополнительное задание (со звездочкой) - необязательно к выполнению**
 Так получилось, что мы очень часто вносим правки в конфигурацию своей системы прямо на сервере. Но так как вся наша команда разработки держит файлы конфигурации в github и пользуется gitflow, то нам приходится каждый раз:
 
