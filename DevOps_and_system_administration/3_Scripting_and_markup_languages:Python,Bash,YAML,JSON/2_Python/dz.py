@@ -26,6 +26,8 @@ for result in result_os.split('\n'):
 import os
 from pprint import pprint
 import socket
+import yaml
+import json
 
 url = {'drive.google.com' : '142.251.31.194', 'mail.google.com': '142.251.143.37', 'google.com': '142.250.180.110'}
 
@@ -43,5 +45,11 @@ class Ping_url():
         else:
             pprint(f'[ERROR] URL сервиса {key} IP mismatch: старый IP - {value} Новый IP - {socket_url}')
             url[key] = socket_url
+
+    # host_obj_list = [{key : value} for key, value in url.items()]
+    #
+    # with open('hostname.yam', 'w', encoding='utf8') as write_json:
+    #     json.dump(host_obj_list, write_json)
+    # pprint(f'JSON >>> запись {os.getcwd()}/hostname.json')
 
 Ping_url(url)
