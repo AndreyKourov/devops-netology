@@ -1,0 +1,21 @@
+FROM archlinux:latest
+
+RUN useradd -m notroot
+
+RUN pacman -Syy --noconfirm && \
+    pacman -Sy --noconfirm git base-devel && \
+    pacman -Syu --noconfirm && \
+    pacman -Sy --noconfirm ponysay
+
+RUN echo "notroot ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/notroot
+
+USER notroot
+WORKDIR /home/notroot
+
+RUN git clone https://aur.archlinux.org/yay-git && \
+    cd yay-git && \
+    makepkg --noconfirm --syncdeps --rmdeps --install
+
+WORKDIR /pkg
+ENTRYPOINT ["/usr/bin/ponysay"]
+CMD ["Hey, netology”]

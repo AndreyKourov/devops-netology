@@ -1,0 +1,13 @@
+FROM amazoncorretto
+
+RUN yum update && yum install -y git wget initscripts
+
+RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+RUN rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+RUN yum update && yum install jenkins -y
+
+EXPOSE 8080
+
+ENTRYPOINT ["/bin/sh", "-c", "/etc/init.d/jenkins start && /bin/bash"]
