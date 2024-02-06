@@ -1,0 +1,7 @@
+#cloud-config
+users:
+  - name: vagrant
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys: [ssh-rsa ТУТ_ТИПО_КЛЮЧ vagrant@server1]
